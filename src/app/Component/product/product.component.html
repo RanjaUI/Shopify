@@ -5,20 +5,22 @@
 ></p-messages>
 <div *ngIf="products">
   <p-dataView #dv [value]="products" [rows]="10" [paginator]="true">
-    <ng-template pTemplate="header">
-      <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
-      <p-iconField iconPosition="right">
-        <div class="form-group">
-          <p-inputIcon styleClass="pi pi-search" />
-          <input
-            type="text"
-            pInputText
-            placeholder="Search"
-            class="search"
-            [(ngModel)]="title"
-          />
-        </div>
-      </p-iconField>
+    <ng-template class="header-container" pTemplate="header">
+      <div class="inner-container-header">
+        <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+        <p-iconField iconPosition="right">
+          <div class="form-group">
+            <p-inputIcon styleClass="pi pi-search" />
+            <input
+              type="text"
+              pInputText
+              placeholder="Search"
+              class="search"
+              [(ngModel)]="title"
+            />
+          </div>
+        </p-iconField>
+      </div>
       <p-button
         class="add-button"
         label="Add Product"
@@ -114,7 +116,7 @@
     [(visible)]="isAddProduct"
     (onHide)="onDialogClose()"
     [modal]="true"
-    [style]="{ width: '50vw' }"
+    [style]="{ width: '80%' }"
     [draggable]="false"
     [resizable]="false"
   >
@@ -126,7 +128,7 @@
     header="Delete Product"
     [(visible)]="isDeleteProduct"
     [modal]="true"
-    [style]="{ width: '30vw' }"
+    [style]="{ width: '80%' }"
     [draggable]="false"
     [resizable]="false"
   >

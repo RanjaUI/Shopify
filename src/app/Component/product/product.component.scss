@@ -64,8 +64,10 @@
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      .edit-button-list {
-        margin-top: 20px;
+      .action-items-inner {
+        margin-top: 1rem;
+        display: flex;
+        gap: 0.5rem;
       }
     }
   }
@@ -113,6 +115,10 @@
     flex-direction: column;
     align-items: center;
 
+    .product-list-action {
+      flex-direction: column;
+    }
+
     img {
       width: 75%;
       margin: 2rem 0;
@@ -127,13 +133,7 @@
     }
 
     .product-list-action {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .product-list-action {
       margin-top: 2rem;
-      flex-direction: row;
       justify-content: space-between;
       align-items: center;
       width: 100%;

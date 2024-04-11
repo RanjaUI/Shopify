@@ -45,19 +45,19 @@
             <span [class]="'product-badge status-' + product.availableQuantity"
               ><b>Available Quanity: </b>{{ product.availableQuantity }}</span
             >
-            <p-button
-              icon="pi pi-user-edit"
-              class="edit-button-list"
-              label="Edit"
-              (onClick)="editProduct(product)"
-            ></p-button>
-            <p-button
-              icon="pi pi-trash"
-              class="edit-button-list"
-              label="Delete"
-              severity="danger"
-              (onClick)="openPopup(product)"
-            ></p-button>
+            <div class="action-items-inner">
+              <p-button
+                icon="pi pi-user-edit"
+                label="Edit"
+                (onClick)="editProduct(product)"
+              ></p-button>
+              <p-button
+                icon="pi pi-trash"
+                label="Delete"
+                severity="danger"
+                (onClick)="openPopup(product)"
+              ></p-button>
+            </div>
           </div>
         </div>
       </div>

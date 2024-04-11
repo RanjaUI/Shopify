@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, Subject } from 'rxjs';
-import { Product } from './product';
+import { Observable, Subject } from 'rxjs';
+import { Product, ResponseApi } from './product';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
   constructor(private httpClient: HttpClient) {}
-  getnotification = new Subject();
-  getExistingProduct = new Subject();
+  getNotification = new Subject<ResponseApi>();
+  getExistingProduct = new Subject<Product>();
   onModalClose = new Subject();
 
   getProducts(): Observable<Product[]> {

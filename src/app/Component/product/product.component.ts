@@ -1,14 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
-import { Product } from '../../services/product';
+import { Product, ResponseApi } from '../../services/product';
 import { Message } from 'primeng/api';
-import { Observable } from 'rxjs';
-interface PageEvent {
-  first: number;
-  rows: number;
-  page: number;
-  pageCount: number;
-}
 
 @Component({
   selector: 'app-product',
@@ -19,7 +12,6 @@ export class ProductComponent implements OnInit {
   first: number = 0;
   rows: number = 5;
   products: Product[] | undefined;
-  // products$: Observable<Product> | undefined;
   filter: string | undefined;
   title: string = '';
   messages: Message[] = [];
@@ -27,13 +19,15 @@ export class ProductComponent implements OnInit {
   isDeleteProduct: boolean = false;
   productId: number | undefined;
   constructor(private productService: ProductService) {
-    this.productService.getnotification.subscribe((res: any) => {
+    this.productService.getNotification.subscribe((res: ResponseApi) => {
       this.isAddProduct = false;
       if (!res.error && res.product) {
         if (res.type === 'add') {
           this.products = [res.product, ...(this.products as any)];
         } else if (res.type === 'edit') {
-          this.products = [res.product, ...(this.products as any)];
+          this.products = this.products?.map((prd: Product) =>
+            prd.id === res?.product?.id ? { ...prd, ...res?.product } : prd
+          );
         }
       }
       this.messages = [
@@ -51,10 +45,6 @@ export class ProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getProducts();
-  }
-
-  getProducts() {
     this.productService.getProducts().subscribe(
       (items) => {
         this.products = items;
@@ -105,7 +95,7 @@ export class ProductComponent implements OnInit {
           {
             severity: 'error',
             summary: 'Error: ',
-            detail: error.statusText,
+            detail: error.statusText || 'Unknown Error',
           },
         ];
       }

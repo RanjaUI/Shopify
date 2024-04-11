@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
+import { Product } from '../../services/product';
 
 @Component({
   selector: 'app-add-product',
@@ -20,9 +21,9 @@ export class AddProductComponent {
   });
 
   constructor(private fb: FormBuilder, private productService: ProductService) {
-    this.productService.getExistingProduct.subscribe((res: any) => {
+    this.productService.getExistingProduct.subscribe((res: Product) => {
       this.productId = res.id;
-      this.productForm.patchValue(res);
+      this.productForm.patchValue(res as any);
     });
     this.productService.onModalClose.subscribe(() => {
       this.productForm.reset();
@@ -48,7 +49,7 @@ export class AddProductComponent {
         .subscribe(
           (res) => {
             if (res) {
-              this.productService.getnotification.next({
+              this.productService.getNotification.next({
                 type: 'edit',
                 product: res,
               });
@@ -57,14 +58,14 @@ export class AddProductComponent {
           },
           (err) => {
             console.log(err);
-            this.productService.getnotification.next({ error: true, ...err });
+            this.productService.getNotification.next({ error: true, ...err });
           }
         );
     } else {
       this.productService.addProduct(this.productForm.value as any).subscribe(
         (res) => {
           if (res) {
-            this.productService.getnotification.next({
+            this.productService.getNotification.next({
               type: 'add',
               product: res,
             });
@@ -72,14 +73,9 @@ export class AddProductComponent {
           }
         },
         (err) => {
-          console.log('Check', err);
-          this.productService.getnotification.next({ error: true, ...err });
+          this.productService.getNotification.next({ error: true, ...err });
         }
       );
     }
-  }
-
-  onUpload(event: any) {
-    console.log(event);
   }
 }

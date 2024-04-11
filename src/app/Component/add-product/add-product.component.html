@@ -1,0 +1,105 @@
+<form [formGroup]="productForm" (ngSubmit)="addOrEditProduct()" novalidate>
+  <div class="field">
+    <span class="p-float-label">
+      <input pInputText id="title" formControlName="title" />
+      <label for="title">Product Title</label>
+    </span>
+    <small
+      class="p-error block"
+      *ngIf="
+        productForm.get('title')?.invalid && productForm.get('title')?.dirty
+      "
+    >
+      Product title is required
+    </small>
+  </div>
+  <div class="field">
+    <span class="p-float-label">
+      <input
+        pInputTextarea
+        rows="5"
+        cols="30"
+        id="description"
+        formControlName="description"
+      />
+      <label for="description">Product Description</label>
+    </span>
+    <small
+      class="p-error block"
+      *ngIf="
+        productForm.get('description')?.invalid &&
+        productForm.get('description')?.dirty
+      "
+    >
+      Product description is required
+    </small>
+  </div>
+  <div class="field">
+    <span class="p-float-label">
+      <input pInputText id="image" formControlName="image" />
+      <label for="image">Product Image URL</label>
+    </span>
+  </div>
+  <div class="field">
+    <span class="p-float-label">
+      <input pInputText pKeyFilter="int" id="price" formControlName="price" />
+      <label for="price">Price</label>
+    </span>
+    <small
+      class="p-error block"
+      *ngIf="
+        productForm.get('price')?.invalid && productForm.get('price')?.dirty
+      "
+    >
+      Price is required
+    </small>
+  </div>
+  <div class="field">
+    <span class="p-float-label">
+      <p-dropdown
+        [options]="category"
+        formControlName="category"
+        [showClear]="true"
+        placeholder="Select a Category"
+        [style]="{ width: '37%' }"
+      ></p-dropdown>
+      <label for="description">Category</label>
+    </span>
+    <small
+      class="p-error block"
+      *ngIf="
+        productForm.get('category')?.invalid &&
+        productForm.get('category')?.dirty
+      "
+    >
+      Category is required
+    </small>
+  </div>
+  <div class="field">
+    <span class="p-float-label">
+      <input
+        pInputText
+        pKeyFilter="int"
+        id="availableQuantity"
+        formControlName="availableQuantity"
+      />
+      <label for="availableQuantity">Available Quantity</label>
+    </span>
+    <small
+      class="p-error block"
+      *ngIf="
+        productForm.get('availableQuantity')?.invalid &&
+        productForm.get('availableQuantity')?.dirty
+      "
+    >
+      Available Quantity is required
+    </small>
+  </div>
+
+  <button
+    pButton
+    type="submit"
+    label="Submit"
+    [disabled]="productForm.invalid"
+  ></button>
+</form>

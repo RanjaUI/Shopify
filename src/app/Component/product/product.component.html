@@ -1,0 +1,144 @@
+<p-messages
+  [(value)]="messages"
+  [enableService]="false"
+  [closable]="true"
+></p-messages>
+<div *ngIf="products">
+  <p-dataView #dv [value]="products" [rows]="10" [paginator]="true">
+    <ng-template pTemplate="header">
+      <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+      <p-iconField iconPosition="right">
+        <div class="form-group">
+          <p-inputIcon styleClass="pi pi-search" />
+          <input
+            type="text"
+            pInputText
+            placeholder="Search"
+            class="search"
+            [(ngModel)]="title"
+          />
+        </div>
+      </p-iconField>
+      <p-button
+        class="add-button"
+        label="Add Product"
+        (onClick)="addProduct()"
+      ></p-button>
+    </ng-template>
+    <ng-template let-products pTemplate="listItem">
+      <div
+        class="p-col-12"
+        *ngFor="let product of products | searchfilter : title"
+      >
+        <div class="product-list-item">
+          <img [src]="product.image" [alt]="product.title" />
+          <div class="product-list-detail">
+            <div class="product-name">{{ product.title }}</div>
+            <div class="product-description">{{ product.description }}</div>
+            <div class="category-container">
+              <i class="pi pi-tag product-category-icon"></i>
+              <span class="product-category">{{ product.category }}</span>
+            </div>
+          </div>
+          <div class="product-list-action">
+            <span class="product-price">₹{{ product.price }}</span>
+            <span [class]="'product-badge status-' + product.availableQuantity"
+              ><b>Available Quanity: </b>{{ product.availableQuantity }}</span
+            >
+            <p-button
+              icon="pi pi-user-edit"
+              class="edit-button-list"
+              label="Edit"
+              (onClick)="editProduct(product)"
+            ></p-button>
+            <p-button
+              icon="pi pi-trash"
+              class="edit-button-list"
+              label="Delete"
+              severity="danger"
+              (onClick)="openPopup(product)"
+            ></p-button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template let-products pTemplate="gridItem">
+      <div
+        class="p-col-12 p-md-4"
+        *ngFor="let product of products | searchfilter : title"
+      >
+        <div class="product-grid-item card">
+          <div class="product-grid-item-top">
+            <div class="category-container">
+              <i class="pi pi-tag product-category-icon"></i>
+              <span class="product-category">{{ product.category }}</span>
+            </div>
+            <div class="grid-price-qty">
+              <span
+                [class]="'product-badge status-' + product.availableQuantity"
+                ><b>Available Quanity: </b>{{ product.availableQuantity }}</span
+              >
+              <div class="product-price">
+                ₹<i>{{ product.price }}</i>
+              </div>
+            </div>
+          </div>
+          <div class="product-grid-item-content">
+            <img [src]="product.image" [alt]="product.title" />
+            <div class="product-title">{{ product.title }}</div>
+            <div class="product-description">{{ product.description }}</div>
+          </div>
+          <div class="product-grid-item-bottom">
+            <p-button
+              class="edit-button-grid"
+              label="Edit Product"
+              (onClick)="editProduct(product)"
+            ></p-button>
+            <p-button
+              class="edit-button-list"
+              label="Delete Product"
+              severity="danger"
+              (onClick)="openPopup(product)"
+            ></p-button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-dataView>
+</div>
+<div class="flex justify-content-center">
+  <p-dialog
+    header="Add Product"
+    [(visible)]="isAddProduct"
+    [modal]="true"
+    [style]="{ width: '50vw' }"
+    [draggable]="false"
+    [resizable]="false"
+  >
+    <app-add-product></app-add-product>
+  </p-dialog>
+</div>
+<div class="flex justify-content-center">
+  <p-dialog
+    header="Delete Product"
+    [(visible)]="isDeleteProduct"
+    [modal]="true"
+    [style]="{ width: '30vw' }"
+    [draggable]="false"
+    [resizable]="false"
+  >
+    <p>Are you Sure want to delete this product</p>
+    <div class="footer">
+      <p-button
+        label="Yes"
+        severity="danger"
+        (onClick)="deleteProduct()"
+      ></p-button>
+      <p-button
+        label="No"
+        severity="success"
+        (onClick)="closePopup()"
+      ></p-button>
+    </div>
+  </p-dialog>
+</div>

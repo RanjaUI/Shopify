@@ -15,13 +15,13 @@
   </div>
   <div class="field">
     <span class="p-float-label">
-      <input
+      <textarea
         pInputTextarea
         rows="5"
-        cols="30"
+        cols="23"
         id="description"
         formControlName="description"
-      />
+      ></textarea>
       <label for="description">Product Description</label>
     </span>
     <small
@@ -61,7 +61,6 @@
         formControlName="category"
         [showClear]="true"
         placeholder="Select a Category"
-        [style]="{ width: '37%' }"
       ></p-dropdown>
       <label for="description">Category</label>
     </span>

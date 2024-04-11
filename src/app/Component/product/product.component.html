@@ -112,6 +112,7 @@
   <p-dialog
     header="Add/Edit Product"
     [(visible)]="isAddProduct"
+    (onHide)="onDialogClose()"
     [modal]="true"
     [style]="{ width: '50vw' }"
     [draggable]="false"

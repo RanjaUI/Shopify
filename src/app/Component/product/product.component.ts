@@ -51,9 +51,10 @@ export class ProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getProduct();
+    this.getProducts();
   }
-  getProduct() {
+
+  getProducts() {
     this.productService.getProducts().subscribe(
       (items) => {
         this.products = items;
@@ -73,13 +74,16 @@ export class ProductComponent implements OnInit {
   addProduct() {
     this.isAddProduct = true;
   }
+
   openPopup(event: any) {
     this.isDeleteProduct = true;
     this.productId = event.id;
   }
+
   closePopup() {
     this.isDeleteProduct = false;
   }
+
   deleteProduct() {
     this.productService.deleteProduct(this.productId as any).subscribe(
       (res) => {
@@ -108,12 +112,18 @@ export class ProductComponent implements OnInit {
     );
     this.isDeleteProduct = false;
   }
+
   editProduct(element: Product) {
     this.isAddProduct = true;
     this.productService.getExistingProduct.next(element);
   }
+
   onPageChange(event: any) {
     this.first = event.first;
     this.rows = event.rows;
+  }
+
+  onDialogClose() {
+    this.productService.onModalClose.next(true);
   }
 }

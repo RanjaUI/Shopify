@@ -24,6 +24,9 @@ export class AddProductComponent {
       this.productId = res.id;
       this.productForm.patchValue(res);
     });
+    this.productService.onModalClose.subscribe(() => {
+      this.productForm.reset();
+    });
   }
 
   ngOnInit() {

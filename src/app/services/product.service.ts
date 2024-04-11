@@ -10,6 +10,7 @@ export class ProductService {
   constructor(private httpClient: HttpClient) {}
   getnotification = new Subject();
   getExistingProduct = new Subject();
+  onModalClose = new Subject();
 
   getProducts(): Observable<Product[]> {
     return this.httpClient.get<Product[]>(

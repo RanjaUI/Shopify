@@ -13,24 +13,24 @@ export class ProductService {
 
   getProducts(): Observable<Product[]> {
     return this.httpClient.get<Product[]>(
-      'http://localhost:8000/inventory?_sort=id&_order=desc'
+      'https://json-server-nodejs.onrender.com/inventory?_sort=id&_order=desc'
     );
   }
   addProduct(sampleProduct: Product): Observable<any> {
     return this.httpClient.post<Product>(
-      'http://localhost:8000/inventory',
+      'https://json-server-nodejs.onrender.com/inventory',
       sampleProduct
     );
   }
   updateProduct(updatedProduct: Product, id: number): Observable<any> {
     return this.httpClient.patch<Product>(
-      `http://localhost:8000/inventory/${id}`,
+      `https://json-server-nodejs.onrender.com/inventory/${id}`,
       updatedProduct
     );
   }
   deleteProduct(id: number): Observable<any> {
     return this.httpClient.delete<Product>(
-      `http://localhost:8000/inventory/${id}`
+      `https://json-server-nodejs.onrender.com/inventory/${id}`
     );
   }
 }
